@@ -58,6 +58,7 @@ sdl.Track("checkout", simpledatalogs.Props{"plan": "pro", "seats": 3, "trial": f
 - Every line gets a UUID `event_id` and a `ts` when you call `Track` or `Log`, so a retry never counts twice.
 - Props are strings, numbers, booleans and named types over them; `fmt.Stringer`s send their text. Anything else is skipped with a warning. At most 100 props.
 - Identity is per call: `WithUserID`, `WithDeviceID`, `WithSessionID`, `WithAnonymousID`.
+- Events from a cron job, a worker or a sync can say so with `simpledatalogs.Props{"app_state": "background"}`, so the Sessions tab counts them as passive sessions; anything else counts as someone using your product.
 - `SetEnabled(false)` is an opt-out: it deletes every unsent line and ignores new ones until `SetEnabled(true)`.
 
 ## Flush and Close
