@@ -35,7 +35,11 @@ docker run --rm -v "$PWD":/w -w /w golang:1.27 sh -c 'go install golang.org/x/vu
 
 ## Releases
 
-Maintainers bump `Version` in `version.go` and `CHANGELOG.md`, then push a tag `v` plus that version (e.g. `v0.1.0`). The release workflow tests the tag and asks the Go proxy to fetch it.
+Maintainers bump `Version` in `version.go` and `CHANGELOG.md`, run the tests, then push a tag `v` plus that version (e.g. `v0.1.0`). Nothing runs on GitHub; ask the Go proxy to fetch the tag so pkg.go.dev shows it at once:
+
+```sh
+GOPROXY=https://proxy.golang.org go list -m github.com/XKD-Labs/simpledatalogs-go@v0.1.0
+```
 
 ## Security
 
